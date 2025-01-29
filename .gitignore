@@ -1,0 +1,9 @@
+.DS_Store
+/.idea
+
+/src/vendor
+/src/node_modules
+
+/src/.php-cs-fixer.cache
+
+/src/.env
