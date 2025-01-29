@@ -7,11 +7,14 @@ namespace App\Core;
  *
  * Handles HTTP request routing.
  */
-class Router {
+class Router
+{
     private static $instance = null;
     private $routes = [];
 
-    private function __construct() {}
+    private function __construct()
+    {
+    }
 
     /**
      * Get the singleton instance of Router.
@@ -21,7 +24,7 @@ class Router {
     public static function getInstance(): Router
     {
         if (self::$instance === null) {
-            self::$instance = new self;
+            self::$instance = new self();
         }
 
         return self::$instance;
@@ -58,7 +61,8 @@ class Router {
     /**
      * Dispatch the request to the appropriate controller method.
      */
-    public function dispatch() {
+    public function dispatch()
+    {
         $method = $_SERVER['REQUEST_METHOD'];
         $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 

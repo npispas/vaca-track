@@ -7,7 +7,8 @@ namespace App\Core;
  *
  * Handles application configuration loading and retrieval.
  */
-class Config {
+class Config
+{
     private static $settings = [];
 
     /**
@@ -18,7 +19,8 @@ class Config {
      *
      * @return void
      */
-    public static function load() {
+    public static function load()
+    {
         self::$settings['database'] = require __DIR__ . '/../Config/Database.php';
         self::$settings['routes'] = require __DIR__ . '/../Config/Routes.php';
         self::$settings['app'] = require __DIR__ . '/../Config/App.php';

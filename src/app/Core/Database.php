@@ -18,9 +18,10 @@ class Database
      *
      * @return Capsule
      */
-    public static function getInstance(): Capsule {
+    public static function getInstance(): Capsule
+    {
         if (self::$capsule === null) {
-            self::$capsule = new Capsule;
+            self::$capsule = new Capsule();
             self::$capsule->addConnection(Config::get('database'));
             self::$capsule->setAsGlobal();
             self::$capsule->bootEloquent();
