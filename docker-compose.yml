@@ -14,7 +14,7 @@ services:
 
   php:
     build: ./src
-    container_name: vaca-track
+    container_name: vaca-track-php
     restart: unless-stopped
     env_file:
       - .env

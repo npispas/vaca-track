@@ -1,6 +1,12 @@
 {
   "name": "vaca-track",
   "version": "1.0.0",
+  "description": "Employee Vacation Management System",
+  "license": "GPL-3.0-or-later",
+  "author": {
+    "name": "Nikolaos Pispas",
+    "email": "npispas@gmail.com"
+  },
   "scripts": {
     "build": "cp node_modules/bootstrap/dist/css/bootstrap.min.css public/css/ && cp node_modules/bootstrap/dist/js/bootstrap.bundle.min.js public/js/ && cp -r vendor/twbs/bootstrap-icons/font/* public/icons/"
   },

@@ -1,5 +1,6 @@
 {
   "name": "npispas/vaca-track",
+  "version": "1.0.0",
   "description": "Employee vacation management system.",
   "minimum-stability": "stable",
   "license": "GPL-3.0-or-later",

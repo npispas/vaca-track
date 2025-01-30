@@ -21,13 +21,19 @@ nginx:
 	docker exec -it $(PROJECT_NAME)-nginx bash
 
 db:
-	docker exec -it $(PROJECT_NAME)-db mysql -uuser -ppassword vaca_track
+	docker exec -it $(PROJECT_NAME)-db bash
 
 composer-install:
 	docker exec -it $(PROJECT_NAME)-php composer install
 
 composer-update:
 	docker exec -it $(PROJECT_NAME)-php composer update
+
+npm-install:
+	docker exec -it $(PROJECT_NAME)-php npm install
+
+npm-update:
+	docker exec -it $(PROJECT_NAME)-php npm update
 
 migrate:
 	docker-compose exec php php App/Database/Migrations/run_migrations.php
