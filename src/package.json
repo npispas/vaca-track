@@ -2,7 +2,7 @@
   "name": "vaca-track",
   "version": "1.0.0",
   "scripts": {
-    "build": "cp node_modules/bootstrap/dist/css/bootstrap.min.css public/css/ && cp node_modules/bootstrap/dist/js/bootstrap.bundle.min.js public/js/"
+    "build": "cp node_modules/bootstrap/dist/css/bootstrap.min.css public/css/ && cp node_modules/bootstrap/dist/js/bootstrap.bundle.min.js public/js/ && cp -r vendor/twbs/bootstrap-icons/font/* public/icons/"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
