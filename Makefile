@@ -30,10 +30,13 @@ composer-update:
 	docker exec -it $(PROJECT_NAME)-php composer update
 
 migrate:
-	docker exec -it $(PROJECT_NAME)-php php artisan migrate
+	docker-compose exec php php App/Database/Migrations/run_migrations.php
+
+rollback:
+	docker-compose exec php php App/Database/Migrations/rollback_migrations.php
 
 seed:
-	docker exec -it $(PROJECT_NAME)-php php artisan db:seed
+	docker-compose exec php php App/Database/Seed/seeder.php
 
 status:
 	docker ps --filter "name=$(PROJECT_NAME)"
