@@ -4,11 +4,12 @@ namespace App\Database\Migrations;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 
-class CreateRolesTable {
+class CreateRolesTable
+{
     public static function up(): void
     {
         Capsule::schema()->create('roles', function ($table) {
-            $table->id ('id');
+            $table->id('id');
             $table->string('name')->unique();
             $table->timestamps();
         });
@@ -22,4 +23,3 @@ class CreateRolesTable {
         echo "Rolled back roles table.\n";
     }
 }
-

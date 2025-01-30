@@ -23,7 +23,7 @@ $appliedMigrations = Capsule::table('migrations')->pluck('migration')->toArray()
 foreach ($migrationFiles as $migration) {
     $migrationClass = pathinfo($migration, PATHINFO_FILENAME);
 
-    if ($migrationClass !== "run_migrations" && $migrationClass !== "rollback_migrations" && !in_array($migrationClass, $appliedMigrations)) {
+    if ($migrationClass !== 'run_migrations' && $migrationClass !== 'rollback_migrations' && !in_array($migrationClass, $appliedMigrations)) {
         echo "Running migration: $migrationClass\n";
         require_once $migration;
         $className = "\\App\\Database\\Migrations\\$migrationClass";

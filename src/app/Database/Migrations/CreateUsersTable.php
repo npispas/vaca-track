@@ -4,7 +4,8 @@ namespace App\Database\Migrations;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
 
-class CreateUsersTable {
+class CreateUsersTable
+{
     public static function up(): void
     {
         Capsule::schema()->create('users', function ($table) {
