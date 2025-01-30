@@ -1,0 +1,10 @@
+{% set flash = flash_messages() %}
+{% if flash %}
+    <div class="toast position-fixed bottom-0 end-0 m-3 align-items-center {{ flash.success ? 'text-bg-success' : 'text-bg-danger' }} border-0" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+            <div class="toast-body">
+                {{ flash.success ?? flash.error }}
+            </div>
+        </div>
+    </div>
+{% endif %}
