@@ -6,8 +6,16 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 
 // Insert roles
 Capsule::table('roles')->insert([
-    ['name' => 'employee'],
-    ['name' => 'manager']
+    [
+        'name' => 'employee',
+        'created_at' => new DateTime(),
+        'updated_at' => new DateTime(),
+    ],
+    [
+        'name' => 'manager',
+        'created_at' => new DateTime(),
+        'updated_at' => new DateTime(),
+    ]
 ]);
 
 // Insert test users
@@ -19,6 +27,8 @@ Capsule::table('users')->insert([
         'username' => 'npispas',
         'employee_id' => '1000000',
         'password' => password_hash('password', PASSWORD_DEFAULT),
+        'created_at' => new DateTime(),
+        'updated_at' => new DateTime(),
     ],
     [
         'role_id' => 2,
@@ -27,6 +37,8 @@ Capsule::table('users')->insert([
         'username' => 'jlock',
         'employee_id' => '1000001',
         'password' => password_hash('password', PASSWORD_DEFAULT),
+        'created_at' => new DateTime(),
+        'updated_at' => new DateTime(),
     ]
 ]);
 
