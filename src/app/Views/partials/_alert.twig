@@ -1,0 +1,12 @@
+{% set flash = flash_messages() %}
+{% if flash %}
+    <div class="alert alert-danger" role="alert">
+        <ul class="mb-0">
+            {% for field, messages in flash.errors %}
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
