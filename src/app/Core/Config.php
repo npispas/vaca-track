@@ -9,7 +9,7 @@ namespace App\Core;
  */
 class Config
 {
-    private static $settings = [];
+    private static array $settings = [];
 
     /**
      * Load configuration files from the `Config/` directory.
@@ -19,7 +19,7 @@ class Config
      *
      * @return void
      */
-    public static function load()
+    public static function load(): void
     {
         self::$settings['database'] = require __DIR__ . '/../Config/Database.php';
         self::$settings['routes'] = require __DIR__ . '/../Config/Routes.php';
@@ -33,7 +33,7 @@ class Config
      * @param mixed|null $default Default value if the key does not exist.
      * @return mixed The configuration value, or the default value if key is not found.
      */
-    public static function get(string $key, string $default = null)
+    public static function get(string $key, string $default = null): mixed
     {
         return self::$settings[$key] ?? $default;
     }

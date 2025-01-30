@@ -11,7 +11,7 @@ use Illuminate\Database\Capsule\Manager as Capsule;
  */
 class Database
 {
-    private static $capsule = null;
+    private static ?Capsule $capsule = null;
 
     /**
      * Get the database connection instance.
@@ -26,6 +26,7 @@ class Database
             self::$capsule->setAsGlobal();
             self::$capsule->bootEloquent();
         }
+
         return self::$capsule;
     }
 }

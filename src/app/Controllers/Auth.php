@@ -6,8 +6,8 @@ use App\Core\View;
 
 class Auth
 {
-    public function login()
+    public function login(): void
     {
-        return View::render('login');
+        View::render('login');
     }
 }
