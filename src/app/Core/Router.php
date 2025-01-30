@@ -9,8 +9,8 @@ namespace App\Core;
  */
 class Router
 {
-    private static $instance = null;
-    private $routes = [];
+    private static ?Router $instance = null;
+    private array $routes = [];
 
     private function __construct()
     {
@@ -75,7 +75,24 @@ class Router
             }
         }
 
+        // Handle Dynamic Routes
+        foreach ($this->routes[$method] as $route => $controllerMethod) {
+            $pattern = preg_replace('/\{(\w+)}/', '(?P<\1>[^/]+)', $route);
+            $pattern = '#^' . $pattern . '$#';
+
+            if (preg_match($pattern, $path, $matches)) {
+                [$controller, $action] = explode('@', $controllerMethod);
+                $controller = "App\\Controllers\\$controller";
+
+                if (class_exists($controller) && method_exists($controller, $action)) {
+                    $params = array_filter($matches, 'is_string', ARRAY_FILTER_USE_KEY);
+
+                    return (new $controller())->$action(...$params);
+                }
+            }
+        }
+
         http_response_code(404);
-        return View::render('errors/404');
+        View::render('errors/404');
     }
 }
