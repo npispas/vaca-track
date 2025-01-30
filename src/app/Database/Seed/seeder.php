@@ -7,12 +7,12 @@ use Illuminate\Database\Capsule\Manager as Capsule;
 // Insert roles
 Capsule::table('roles')->insert([
     [
-        'name' => 'employee',
+        'name' => 'Employee',
         'created_at' => new DateTime(),
         'updated_at' => new DateTime(),
     ],
     [
-        'name' => 'manager',
+        'name' => 'Manager',
         'created_at' => new DateTime(),
         'updated_at' => new DateTime(),
     ]
