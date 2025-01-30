@@ -16,6 +16,8 @@ services:
     build: ./src
     container_name: vaca-track
     restart: unless-stopped
+    env_file:
+      - .env
     volumes:
       - ./src:/var/www/html
     depends_on:
@@ -26,10 +28,10 @@ services:
     container_name: vaca-track-db
     restart: unless-stopped
     environment:
-      MARIADB_ROOT_PASSWORD: root
-      MYSQL_DATABASE: vaca_track
-      MYSQL_USER: root
-      MYSQL_PASSWORD:
+      MARIADB_ROOT_PASSWORD: ${DB_PASS}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
     ports:
       - "3306:3306"
     volumes:

@@ -2,10 +2,10 @@
 
 return [
     'driver'    => 'mysql',
-    'host'      => getenv('DB_HOST') ?: 'localhost',
-    'database'  => getenv('DB_NAME') ?: 'vaca_track',
-    'username'  => getenv('DB_USER') ?: 'root',
-    'password'  => getenv('DB_PASS') ?: 'root',
+    'host'      => $_ENV['DB_HOST'] ?: '',
+    'database'  => $_ENV['DB_NAME'] ?: '',
+    'username'  => $_ENV['DB_USER'] ?: '',
+    'password'  => $_ENV['DB_PASS'] ?: '',
     'charset'   => 'utf8mb4',
     'collation' => 'utf8mb4_unicode_ci',
     'prefix'    => '',
