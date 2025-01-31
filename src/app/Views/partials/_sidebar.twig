@@ -1,0 +1,25 @@
+<!-- Sidebar Web Version -->
+<div class="d-flex flex-column flex-shrink-0 p-3 bg-light sidebar shadow vh-100">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+        <span class="fs-4">VacaTrack</span>
+    </a>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+            <a href="/" class="nav-link {{ router().currentRoute() == '/' ? 'active' : 'link-body-emphasis' }}">
+                <i class="bi bi-house-door me-2"></i> Home
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/users" class="nav-link {{ router().matches('users') ? 'active' : 'link-body-emphasis' }}">
+                <i class="bi bi-people me-2"></i> Users
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/vacations" class="nav-link link-body-emphasis {% if active_page == 'vacations' %}active{% endif %}">
+                <i class="bi bi-calendar-check me-2"></i> Vacations
+            </a>
+        </li>
+    </ul>
+</div>
+<!-- End of Sidebar Web Version -->
