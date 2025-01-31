@@ -64,7 +64,11 @@ class Request
                 }
 
                 if ($ruleName === 'unique' && !empty($value)) {
-                    [$table, $column, $ignoreId] = explode(',', $ruleParam);
+                    $params = explode(',', $ruleParam);
+                    $table = $params[0];
+                    $column = $params[1];
+                    $ignoreId = $params[2] ?? null;
+
                     $query = Capsule::table($table)->where($column, $value);
 
                     if ($ignoreId) {
