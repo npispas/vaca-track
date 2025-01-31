@@ -11,6 +11,8 @@ class Router
 {
     private static ?Router $instance = null;
     private array $routes = [];
+    private array $middleware = [];
+    private string $currentRoute = '';
 
     private function __construct()
     {
@@ -35,11 +37,13 @@ class Router
      *
      * @param string $path
      * @param string $controllerMethod Controller@Method
+     * @param array $middleware
      * @return Router
      */
-    public function get(string $path, string $controllerMethod): Router
+    public function get(string $path, string $controllerMethod, array $middleware = []): Router
     {
         $this->routes['GET'][$path] = $controllerMethod;
+        $this->middleware[$path] = $middleware;
 
         return $this;
     }
@@ -49,13 +53,36 @@ class Router
      *
      * @param string $path
      * @param string $controllerMethod Controller@Method
+     * @param array $middleware
      * @return Router
      */
-    public function post(string $path, string $controllerMethod): Router
+    public function post(string $path, string $controllerMethod, array $middleware = []): Router
     {
         $this->routes['POST'][$path] = $controllerMethod;
+        $this->middleware[$path] = $middleware;
 
         return $this;
+    }
+
+    /**
+     * Get the current route.
+     *
+     * @return string|null
+     */
+    public function currentRoute(): ?string
+    {
+        return $this->currentRoute;
+    }
+
+    /**
+     * Check if the given path matches the current route.
+     *
+     * @param string $path The path to be checked against the current route.
+     * @return bool True if the path contains the current route, false otherwise.
+     */
+    public function matches(string $path): bool
+    {
+        return str_contains($this->currentRoute, $path);
     }
 
     /**
@@ -65,8 +92,15 @@ class Router
     {
         $method = $_SERVER['REQUEST_METHOD'];
         $path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        $this->currentRoute = $path;
 
         if (isset($this->routes[$method][$path])) {
+            if (isset($this->middleware[$path])) {
+                foreach ($this->middleware[$path] as $middleware) {
+                    (new $middleware())->handle();
+                }
+            }
+
             [$controller, $method] = explode('@', $this->routes[$method][$path]);
             $controller = "App\\Controllers\\$controller";
 
@@ -81,6 +115,12 @@ class Router
             $pattern = '#^' . $pattern . '$#';
 
             if (preg_match($pattern, $path, $matches)) {
+                if (isset($this->middleware[$route])) {
+                    foreach ($this->middleware[$route] as $middleware) {
+                        (new $middleware())->handle();
+                    }
+                }
+
                 [$controller, $action] = explode('@', $controllerMethod);
                 $controller = "App\\Controllers\\$controller";
 
