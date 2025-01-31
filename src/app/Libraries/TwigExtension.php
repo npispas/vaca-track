@@ -2,6 +2,8 @@
 
 namespace App\Libraries;
 
+use App\Core\Config;
+use App\Core\Router;
 use App\Core\Session;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
@@ -22,13 +24,46 @@ class TwigExtension extends AbstractExtension
     {
         return [
             new TwigFunction('flash_messages', [$this, 'getFlashMessages']),
+            new TwigFunction('session', [$this, 'session']),
+            new TwigFunction('config', [$this, 'config']),
+            new TwigFunction('router', [$this, 'router']),
         ];
     }
 
     /**
-     * Retrieve and clear session flash messages.
+     * Retrieve a session item.
      *
-     * @return array|null Flash messages or null if none exist
+     * @param string $key
+     * @return mixed Returns a session item or the default value if not exists
+     */
+    public function session(string $key): mixed
+    {
+        return Session::get($key);
+    }
+
+    /**
+     * Retrieve a configuration item.
+     *
+     * @param string $key
+     * @return mixed Returns a configuration item or the default value if not exists
+     */
+    public function config(string $key): mixed
+    {
+        return Config::get($key);
+    }
+
+    /**
+     * Retrieve a router instance.
+     *
+     * @return Router Returns an instance of the router.
+     */
+    public function router(): Router
+    {
+        return Router::getInstance();
+    }
+
+    /**
+     * Retrieve and clear session flash messages.
      */
     public function getFlashMessages(): ?array
     {

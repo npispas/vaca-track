@@ -10,10 +10,11 @@
         <link rel="manifest" href="/site.webmanifest">
         <link rel="stylesheet" href="/css/style.css">
         <link rel="stylesheet" href="/icons/bootstrap-icons.css">
-        <title>{% block title %}VacaTrack{% endblock %}</title>
+        <title>{{ config('app').name }}</title>
     </head>
     <body>
-        <main class="container mt-4">
+        <main class="d-flex">
+            {% include 'partials/_sidebar.twig' %}
             {% block content %}{% endblock %}
         </main>
 

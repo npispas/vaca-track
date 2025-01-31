@@ -7,6 +7,10 @@ require_once __DIR__ . '/Config/Routes.php';
 
 use App\Core\Config;
 use App\Core\Database;
+use App\Core\Session;
+
+// Start Session
+Session::start();
 
 // Load Configurations
 Config::load();

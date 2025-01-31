@@ -20,6 +20,66 @@ class Session
     }
 
     /**
+     * Store a value in session.
+     *
+     * @param string $key The session key
+     * @param mixed $value The value to store
+     */
+    public static function put(string $key, mixed $value): void
+    {
+        self::start();
+        $_SESSION[$key] = $value;
+    }
+
+    /**
+     * Retrieve a session value.
+     *
+     * @param string $key The session key
+     * @param mixed|null $default Default value if key does not exist
+     * @return mixed The session value or default
+     */
+    public static function get(string $key, mixed $default = null): mixed
+    {
+        self::start();
+        return $_SESSION[$key] ?? $default;
+    }
+
+    /**
+     * Check if a session key exists.
+     *
+     * @param string $key The session key
+     * @return bool True if exists, false otherwise
+     */
+    public static function has(string $key): bool
+    {
+        self::start();
+        return isset($_SESSION[$key]);
+    }
+
+    /**
+     * Remove a session key.
+     *
+     * @param string $key The session key to remove
+     */
+    public static function remove(string $key): void
+    {
+        self::start();
+        unset($_SESSION[$key]);
+    }
+
+    /**
+     * Completely destroy the session and remove all stored data.
+     */
+    public static function destroy(): void
+    {
+        self::start();
+
+        $_SESSION = [];
+
+        session_destroy();
+    }
+
+    /**
      * Set a flash message.
      *
      * @param string $key The type of message (e.g., 'success', 'error')
