@@ -1,3 +1,10 @@
 @import "bootstrap.min.css";
 
 /* Custom Styles */
+body {
+    background-color: rgba(0, 0, 0, .1);
+}
+
+.sidebar {
+    width: 18rem;
+}
