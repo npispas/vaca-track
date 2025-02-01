@@ -8,3 +8,12 @@ body {
 .sidebar {
     width: 18rem;
 }
+
+/* Override bootstrap's default height on textarea when using floating label */
+.form-floating>textarea.form-control {
+    height: 7.5rem;
+}
+
+.form-select {
+    height: 3.625rem;
+}
