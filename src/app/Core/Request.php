@@ -2,6 +2,7 @@
 
 namespace App\Core;
 
+use DateTime;
 use Illuminate\Database\Capsule\Manager as Capsule;
 
 class Request
@@ -52,42 +53,69 @@ class Request
                 }
 
                 if ($ruleName === 'nullable' && empty($value)) {
-                    break;
+                    continue 2;
                 }
 
                 if ($ruleName === 'required' && empty($value)) {
                     $errors[$field][] = ucfirst($field) . ' is required.';
+
+                    continue;
                 }
 
                 if ($ruleName === 'email' && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
                     $errors[$field][] = ucfirst($field) . ' must be a valid email.';
+
+                    continue;
                 }
 
                 if ($ruleName === 'unique' && !empty($value)) {
                     $params = explode(',', $ruleParam);
-                    $table = $params[0];
-                    $column = $params[1];
+                    $table = $params[0] ?? null;
+                    $column = $params[1] ?? null;
                     $ignoreId = $params[2] ?? null;
 
-                    $query = Capsule::table($table)->where($column, $value);
-
-                    if ($ignoreId) {
-                        $query->where('id', '!=', $ignoreId);
-                    }
-
-                    if ($query->exists()) {
-                        $errors[$field][] = ucfirst($field) . ' is already taken.';
+                    if ($table && $column) {
+                        $query = Capsule::table($table)->where($column, $value);
+                        if (!empty($ignoreId)) {
+                            $query->where('id', '!=', $ignoreId);
+                        }
+                        if ($query->exists()) {
+                            $errors[$field][] = ucfirst($field) . ' is already taken.';
+                        }
                     }
                 }
 
                 if ($ruleName === 'min' && strlen($value) < $ruleParam) {
                     $errors[$field][] = ucfirst($field) . " must be at least $ruleParam characters.";
+
+                    continue;
                 }
 
-                if ($field === 'password' && isset($data['password_confirmation']) && $value !== $data['password_confirmation']) {
-                    $errors[$field][] = 'Passwords do not match.';
+                if ($ruleName === 'max' && strlen($value) > $ruleParam) {
+                    $errors[$field][] = ucfirst($field) . " must be at $ruleParam characters max.";
+
+                    continue;
+                }
+
+                if ($ruleName === 'exact' && strlen($value) != $ruleParam) {
+                    $errors[$field][] = ucfirst($field) . " must be exactly $ruleParam characters.";
+
+                    continue;
+                }
+
+                if ($ruleName === 'date') {
+                    $format = 'Y-m-d';
+                    $dateTime = DateTime::createFromFormat($format, $value);
+
+                    if (!$dateTime || $dateTime->format($format) !== $value) {
+                        $errors[$field][] = ucfirst($field) . " must be a valid date in format $format.";
+                    }
                 }
             }
+        }
+
+        if (!empty($data['password']) && !empty($data['password_confirmation']) && $data['password'] !== $data['password_confirmation']) {
+            $errors['password'][] = 'Passwords do not match.';
         }
 
         return empty($errors) ? null : $errors;

@@ -28,12 +28,12 @@ class User extends Controller
     public function store(): void
     {
         $errors = Request::validate([
-            'name' => ['required'],
-            'email' => ['required', 'email', 'unique' => 'users,email'],
-            'username' => ['required', 'unique' => 'users,username'],
-            'employee_id' => ['required', 'unique' => 'users,employee_id'],
+            'name' => ['required', 'max' => 255],
+            'email' => ['required', 'email', 'unique' => 'users,email', 'max' => 255],
+            'username' => ['required', 'unique' => 'users,username', 'max' => 255],
+            'employee_id' => ['required', 'unique' => 'users,employee_id', 'exact' => 7],
             'role_id' => ['required'],
-            'password' => ['required', 'min' => 8],
+            'password' => ['required', 'min' => 8, 'max' => 255],
             'password_confirmation' => ['required']
         ]);
 
@@ -60,10 +60,10 @@ class User extends Controller
     public function update(int $id): void
     {
         $errors = Request::validate([
-            'name' => ['required'],
-            'email' => ['required', 'email', 'unique' => "users,email,$id"],
-            'password' => ['nullable', 'min' => 8],
-            'password_confirmation' => ['nullable']
+            'name' => ['required', 'max' => 255],
+            'email' => ['required', 'email', 'unique' => "users,email,$id", 'max' => 255],
+            'password' => ['nullable', 'min' => 8, 'max' => 255],
+            'password_confirmation' => ['nullable'],
         ]);
 
         if ($errors) {
