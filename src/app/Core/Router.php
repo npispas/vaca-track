@@ -43,7 +43,7 @@ class Router
     public function get(string $path, string $controllerMethod, array $middleware = []): Router
     {
         $this->routes['GET'][$path] = $controllerMethod;
-        $this->middleware[$path] = $middleware;
+        $this->middleware['GET'][$path] = $middleware;
 
         return $this;
     }
@@ -59,7 +59,7 @@ class Router
     public function post(string $path, string $controllerMethod, array $middleware = []): Router
     {
         $this->routes['POST'][$path] = $controllerMethod;
-        $this->middleware[$path] = $middleware;
+        $this->middleware['POST'][$path] = $middleware;
 
         return $this;
     }
@@ -95,11 +95,7 @@ class Router
         $this->currentRoute = $path;
 
         if (isset($this->routes[$method][$path])) {
-            if (isset($this->middleware[$path])) {
-                foreach ($this->middleware[$path] as $middleware) {
-                    (new $middleware())->handle();
-                }
-            }
+            $this->executeMiddleware($method, $path);
 
             [$controller, $method] = explode('@', $this->routes[$method][$path]);
             $controller = "App\\Controllers\\$controller";
@@ -115,11 +111,7 @@ class Router
             $pattern = '#^' . $pattern . '$#';
 
             if (preg_match($pattern, $path, $matches)) {
-                if (isset($this->middleware[$route])) {
-                    foreach ($this->middleware[$route] as $middleware) {
-                        (new $middleware())->handle();
-                    }
-                }
+                $this->executeMiddleware($method, $route);
 
                 [$controller, $action] = explode('@', $controllerMethod);
                 $controller = "App\\Controllers\\$controller";
@@ -134,5 +126,26 @@ class Router
 
         http_response_code(404);
         View::render('errors/404');
+        die();
+    }
+
+    /**
+     * Executes middleware for a given route.
+     *
+     * @param string $path
+     * @param string $method
+     */
+    private function executeMiddleware(string $method, string $path): void
+    {
+        if (isset($this->middleware[$method][$path])) {
+            foreach ($this->middleware[$method][$path] as $middleware) {
+                if (is_array($middleware)) {
+                    [$middlewareClass, $middlewareParam] = $middleware;
+                    (new $middlewareClass($middlewareParam))->handle();
+                } else {
+                    (new $middleware())->handle();
+                }
+            }
+        }
     }
 }

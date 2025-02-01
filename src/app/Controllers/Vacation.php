@@ -13,7 +13,11 @@ class Vacation extends Controller
 {
     public function index(): void
     {
-        $vacations = VacationModel::with('user')->get();
+        if (Auth::user()->role->name === 'Manager') {
+            $vacations = VacationModel::with('user')->get();
+        } else {
+            $vacations = VacationModel::where('user_id', Auth::user()->id)->get();
+        }
 
         View::render('vacations/index', compact('vacations'));
     }
@@ -54,7 +58,7 @@ class Vacation extends Controller
     {
         $vacation = VacationModel::find($id);
 
-        if ($vacation->status !== 'pending') {
+        if ($vacation->status !== 'Pending') {
             Response::redirect('/vacations')->with('error', 'You cannot delete this vacation!')->send();
         }
 

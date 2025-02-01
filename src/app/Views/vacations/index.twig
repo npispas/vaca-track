@@ -16,7 +16,9 @@
                             <table class="table table-striped table-hover">
                                 <thead>
                                 <tr>
-                                    <th>Name</th>
+                                    {% if session('user').role.name == 'Manager' %}
+                                        <th>Name</th>
+                                    {% endif %}
                                     <th>Start Date</th>
                                     <th>End Date</th>
                                     <th>Duration</th>
@@ -29,7 +31,9 @@
                                 <tbody>
                                 {% for vacation in vacations %}
                                     <tr>
-                                        <td>{{ vacation.user.name }}</td>
+                                        {% if session('user').role.name == 'Manager' %}
+                                            <td>{{ vacation.user.name }}</td>
+                                        {% endif %}
                                         <td>{{ vacation.start_date }}</td>
                                         <td>{{ vacation.end_date }}</td>
                                         <td>{{ vacation.duration }} Day(s)</td>
@@ -38,8 +42,16 @@
                                         <td>{{ vacation.status }}</td>
                                         <td>
                                             {% if vacation.status == 'Pending' %}
-                                                <a href="/vacations/{{ vacation.id }}/approve" data-bs-toggle="tooltip" data-bs-title="Approve"><i class="bi bi-check-lg text-success"></i></a>
-                                                <a href="/vacations/{{ vacation.id }}/reject" data-bs-toggle="tooltip" data-bs-title="Reject"><i class="bi bi-x-lg text-danger"></i></a>
+                                                {% if session('user').role.name == 'Manager' %}
+                                                    <a href="/vacations/{{ vacation.id }}/approve" data-bs-toggle="tooltip" data-bs-title="Approve"><i class="bi bi-check-lg text-success"></i></a>
+                                                    <a href="/vacations/{{ vacation.id }}/reject" data-bs-toggle="tooltip" data-bs-title="Reject"><i class="bi bi-x-lg text-danger"></i></a>
+                                                {% else %}
+                                                    <span data-bs-toggle="tooltip" data-bs-title="Delete">
+                                                        <a data-bs-toggle="modal" data-bs-target="#confirmation-modal" href="#" data-href="/vacations/{{ vacation.id }}/delete" data-message="Are you sure you want to delete this vacation?">
+                                                            <i class="bi bi-trash text-danger"></i>
+                                                        </a>
+                                                    </span>
+                                                {% endif %}
                                             {% endif %}
                                         </td>
                                     </tr>
@@ -55,10 +67,12 @@
         </div>
     </div>
 
+    {% include 'partials/_modal.twig' %}
     {% include 'partials/_toast.twig' %}
 {% endblock %}
 
 {% block scripts %}
+    <script src="/js/modal.js"></script>
     <script src="/js/toast.js"></script>
     <script src="/js/tooltip.js"></script>
 {% endblock %}
