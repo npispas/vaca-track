@@ -17,3 +17,10 @@ $router->post('/users', 'User@store', [AuthMiddleware::class]);
 $router->get('/users/{id}/edit', 'User@edit', [AuthMiddleware::class]);
 $router->post('/users/{id}', 'User@update', [AuthMiddleware::class]);
 $router->get('/users/{id}/delete', 'User@delete', [AuthMiddleware::class]);
+
+$router->get('/vacations', 'Vacation@index', [AuthMiddleware::class]);
+$router->get('/vacations/create', 'Vacation@create', [AuthMiddleware::class]);
+$router->post('/vacations', 'Vacation@store', [AuthMiddleware::class]);
+$router->post('/vacations/{id}/delete', 'Vacation@delete', [AuthMiddleware::class]);
+$router->get('/vacations/{id}/approve', 'Vacation@approve', [AuthMiddleware::class]);
+$router->get('/vacations/{id}/reject', 'Vacation@reject', [AuthMiddleware::class]);

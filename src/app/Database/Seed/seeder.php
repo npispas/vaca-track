@@ -42,4 +42,26 @@ Capsule::table('users')->insert([
     ]
 ]);
 
+// Insert test vacations
+Capsule::table('vacations')->insert([
+    [
+        'user_id' => 1,
+        'start_date' => '2025-02-20',
+        'end_date' => '2025-02-25',
+        'reason' => 'Farming',
+        'status' => 'pending',
+        'created_at' => new DateTime(),
+        'updated_at' => new DateTime(),
+    ],
+    [
+        'user_id' => 1,
+        'start_date' => '2025-05-01',
+        'end_date' => '2025-05-10',
+        'reason' => 'Easter Time',
+        'status' => 'pending',
+        'created_at' => new DateTime(),
+        'updated_at' => new DateTime(),
+    ],
+]);
+
 echo "Seed data inserted successfully.\n";
