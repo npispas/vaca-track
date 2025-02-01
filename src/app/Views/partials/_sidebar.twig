@@ -16,7 +16,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="/vacations" class="nav-link link-body-emphasis {% if active_page == 'vacations' %}active{% endif %}">
+            <a href="/vacations" class="nav-link {{ router().matches('vacations') ? 'active' : 'link-body-emphasis' }}">
                 <i class="bi bi-calendar-check me-2"></i> Vacations
             </a>
         </li>
