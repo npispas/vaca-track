@@ -23,7 +23,9 @@ class Auth
      */
     public static function user(): ?User
     {
-        return Session::get('user');
+        $user = Session::get('user');
+
+        return $user->fresh();
     }
 
     /**
