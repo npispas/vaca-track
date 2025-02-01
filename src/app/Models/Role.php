@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @method static find(int $id)
+ * @property $name
  */
 class Role extends Model
 {

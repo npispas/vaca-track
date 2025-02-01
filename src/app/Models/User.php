@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $id
  * @property string $name
  * @property int $remaining_vacation_days
+ * @property Role $role
  */
 class User extends Model
 {
