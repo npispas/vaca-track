@@ -1,0 +1,64 @@
+{% extends "layouts/base.twig" %}
+
+{% block content %}
+    <div class="container-fluid g-5 mt-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="card shadow">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="card-title mb-0">List of Vacations</h5>
+                        {% if session('user').role.name != 'Manager' %}
+                            <a href="/vacations/create" class="btn btn-primary btn-sm float-end">Create</a>
+                        {% endif %}
+                    </div>
+                    <div class="card-body">
+                        {% if vacations is not empty %}
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Duration</th>
+                                    <th>Reason</th>
+                                    <th>Requested At</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for vacation in vacations %}
+                                    <tr>
+                                        <td>{{ vacation.user.name }}</td>
+                                        <td>{{ vacation.start_date }}</td>
+                                        <td>{{ vacation.end_date }}</td>
+                                        <td>{{ vacation.duration }} Day(s)</td>
+                                        <td>{{ vacation.reason }}</td>
+                                        <td>{{ vacation.created_at }}</td>
+                                        <td>{{ vacation.status }}</td>
+                                        <td>
+                                            {% if vacation.status == 'Pending' %}
+                                                <a href="/vacations/{{ vacation.id }}/approve" data-bs-toggle="tooltip" data-bs-title="Approve"><i class="bi bi-check-lg text-success"></i></a>
+                                                <a href="/vacations/{{ vacation.id }}/reject" data-bs-toggle="tooltip" data-bs-title="Reject"><i class="bi bi-x-lg text-danger"></i></a>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        {% else %}
+                            <p>No vacations found.</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'partials/_toast.twig' %}
+{% endblock %}
+
+{% block scripts %}
+    <script src="/js/toast.js"></script>
+    <script src="/js/tooltip.js"></script>
+{% endblock %}

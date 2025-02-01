@@ -17,6 +17,7 @@
                                     <th>Employee Id</th>
                                     <th>Name</th>
                                     <th>Email</th>
+                                    <th>Remaining Vacation</th>
                                     <th>Actions</th>
                                 </tr>
                                 </thead>
@@ -26,11 +27,14 @@
                                         <td>{{ user.employee_id }}</td>
                                         <td>{{ user.name }}</td>
                                         <td>{{ user.email }}</td>
+                                        <td>{{ user.remaining_vacation_days }} Day(s)</td>
                                         <td>
-                                            <a href="/users/{{ user.id }}/edit"><i class="bi bi-pencil text-warning"></i></a>
-                                            <a data-bs-toggle="modal" data-bs-target="#confirmation-modal" href="#" data-href="/users/{{ user.id }}/delete" data-message="Are you sure you want to delete {{ user.name }}?">
-                                                <i class="bi bi-trash text-danger"></i>
-                                            </a>
+                                            <a href="/users/{{ user.id }}/edit" data-bs-toggle="tooltip" data-bs-title="Edit"><i class="bi bi-pencil text-warning"></i></a>
+                                            <span data-bs-toggle="tooltip" data-bs-title="Delete">
+                                                <a data-bs-toggle="modal" data-bs-target="#confirmation-modal" href="#" data-href="/users/{{ user.id }}/delete" data-message="Are you sure you want to delete {{ user.name }}?">
+                                                    <i class="bi bi-trash text-danger"></i>
+                                                </a>
+                                            </span>
                                         </td>
                                     </tr>
                                 {% endfor %}
@@ -52,4 +56,5 @@
 {% block scripts %}
     <script src="/js/modal.js"></script>
     <script src="/js/toast.js"></script>
+    <script src="/js/tooltip.js"></script>
 {% endblock %}
