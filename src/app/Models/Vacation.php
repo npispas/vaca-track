@@ -99,4 +99,14 @@ class Vacation extends Model
         $this->status = 'rejected';
         $this->save();
     }
+
+    /**
+     * Returns the total pending vacations
+     *
+     * @return int
+     */
+    public function totalPendingVacations(): int
+    {
+        return $this->where('status', 'Pending')->count();
+    }
 }

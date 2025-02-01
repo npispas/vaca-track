@@ -7,5 +7,41 @@
                 <h2>Welcome Home {{ session('user').first_name }}!</h2>
             </div>
         </div>
+
+        {% if session('user').role.name == 'Manager' %}
+            <div class="row mt-3">
+                <div class="col-2">
+                    <div class="card shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="Total Employees">
+                        <div class="card-body">
+                            <div class="text-center fs-3"><i class="bi bi-people"></i></div>
+                            <div class="text-center">{{ data.total_employees }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="card shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="Pending Vacations">
+                        <div class="card-body">
+                            <div class="text-center fs-3"><i class="bi bi-calendar-check"></i></div>
+                            <div class="text-center">{{ data.pending_vacations }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <div class="row mt-3">
+                <div class="col-2">
+                    <div class="card shadow" data-bs-toggle="tooltip" data-bs-placement="top" title="Remaining Vacation Days">
+                        <div class="card-body">
+                            <div class="text-center fs-3"><i class="bi bi-calendar-check"></i></div>
+                            <div class="text-center">{{ data.remaining_vacation_days }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
     </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="/js/tooltip.js"></script>
 {% endblock %}

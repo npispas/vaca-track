@@ -32,6 +32,16 @@ class User extends Model
     protected $appends = ['first_name', 'remaining_vacation_days'];
 
     /**
+     * Hash the password before saving.
+     *
+     * @param string $password The plain text password.
+     */
+    public function setPasswordAttribute(string $password): void
+    {
+        $this->attributes['password'] = password_hash($password, PASSWORD_DEFAULT);
+    }
+
+    /**
      * Calculates the user's first name.
      *
      * @return string
@@ -81,12 +91,12 @@ class User extends Model
     }
 
     /**
-     * Hash the password before saving.
+     * Retrieves the total users with employee role.
      *
-     * @param string $password The plain text password.
+     * @return int
      */
-    public function setPasswordAttribute(string $password): void
+    public function totalEmployees(): int
     {
-        $this->attributes['password'] = password_hash($password, PASSWORD_DEFAULT);
+        return $this->where('role_id', Role::where('name', 'employee')->first()->id)->count();
     }
 }
