@@ -66,7 +66,7 @@ make composer-install
 make npm-install
 ```
 
-### **5️⃣ Run Database Migrations & Seeder **
+### **5️⃣ Run Database Migrations & Seeder**
 ```sh
 make migrate
 make seed
