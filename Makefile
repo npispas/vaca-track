@@ -29,6 +29,9 @@ composer-install:
 composer-update:
 	docker exec -it $(PROJECT_NAME)-php composer update
 
+fix:
+	docker exec -it $(PROJECT_NAME)-php composer cs-fix
+
 npm-install:
 	docker exec -it $(PROJECT_NAME)-php npm install
 
