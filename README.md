@@ -1,7 +1,7 @@
 # VacaTrack - Employee Vacation Management System
 
 ## 🚀 About the Project
-VacaTrack is a frictional **Employee Vacation Management System** that allows employees to request vacation days online while ensuring managers can approve or reject vacation requests. The system enforces **role-based access control** and ensures vacation constraints such as **annual leave limits**.
+VacaTrack is a fictional **Employee Vacation Management System** that allows employees to request vacation days online while ensuring managers can approve or reject vacation requests. The system enforces **role-based access control** and ensures vacation constraints such as **annual leave limits**.
 
 ## 📌 Features
 - ✅ **User Authentication & Authorization** (Employees & Managers)
