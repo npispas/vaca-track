@@ -124,4 +124,5 @@ This project is licensed under the **GNU GPL-3.0-or-later** License.
 Feel free to contribute to the project! Open issues or submit a pull request.
 
 🌟 **Created by Nikolaos Pispas**
+📧 [npispasl@gmail.com](mailto:npispas@gmail.com)
 
