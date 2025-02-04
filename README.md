@@ -123,6 +123,6 @@ This project is licensed under the **GNU GPL-3.0-or-later** License.
 ## 📫 Contact & Contributions
 Feel free to contribute to the project! Open issues or submit a pull request.
 
-🌟 **Created by Nikolaos Pispas**
+🌟 **Created by Nikolaos Pispas**<br>
 📧 [npispasl@gmail.com](mailto:npispas@gmail.com)
 
